@@ -23,22 +23,22 @@ class Config
 
     public function __construct()
     {
-        $githubWorkspace       = getenv('GITHUB_WORKSPACE', true);
+        $githubWorkspace       = getenv('GITHUB_WORKSPACE', true) ?? '';
         $this->githubWorkspace = $githubWorkspace;
 
         $this->reportFilePath = realpath($githubWorkspace . '/' . (getenv('INPUT_REPORT', true) ?? 'clover.xml'));
 
-        $this->badgePath = realpath($githubWorkspace . '/' . getenv('INPUT_COVERAGE_BADGE_PATH', true));
+        $this->badgePath = realpath($githubWorkspace . '/' . (getenv('INPUT_COVERAGE_BADGE_PATH', true) ?? ''));
 
-        $this->repoToken = getenv('INPUT_REPO_TOKEN', true);
+        $this->repoToken = getenv('INPUT_REPO_TOKEN', true) ?? '';
 
-        $this->destRepo = getenv('INPUT_REPO', true); /* REPO to push to ex: AGWD/badges */
+        $this->destRepo = getenv('INPUT_REPO', true) ?? ''; /* REPO to push to ex: AGWD/badges */
 
-        $this->commitMessage = getenv('INPUT_COMMIT_MESSAGE', true);
+        $this->commitMessage = getenv('INPUT_COMMIT_MESSAGE', true) ?? '';
 
-        $this->commitEmail = getenv('INPUT_COMMIT_EMAIL', true);
+        $this->commitEmail = getenv('INPUT_COMMIT_EMAIL', true) ?? '';
 
-        $this->commitName = getenv('INPUT_COMMIT_NAME', true);
+        $this->commitName = getenv('INPUT_COMMIT_NAME', true) ?? '';
 
     }
 
