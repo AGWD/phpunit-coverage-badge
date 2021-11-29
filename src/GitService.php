@@ -46,7 +46,7 @@ class GitService
      */
     private function clone(string $githubWorkspace, string $destRepo): string
     {
-        exec('cd ' . $githubWorkspace . ' && git clone --single-branch https://github.com/' . $destRepo . ' $destRepo');
+        exec('cd ' . $githubWorkspace . ' && git clone --single-branch https://github.com/' . $destRepo . ' ' . $destRepo);
 
         /* workspace includes clone repo path */
 
