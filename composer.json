@@ -1,0 +1,22 @@
+{
+    "name": "agwd/phpunit-coverage-badge",
+    "description": "Generates a code coverage badge from a phpunit coverage report and pushes to another repo for hosting",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian Green",
+            "email": "git@adriangreen.com.au"
+        }
+    ],
+    "require": {
+        "php": ">=7.4, ^8",
+        "ext-simplexml": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpUnitCoverageBadge\\": "src/"
+        }
+    }
+}
