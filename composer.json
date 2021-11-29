@@ -1,5 +1,5 @@
 {
-    "name": "agwd/phpunit-coverage-badge",
+    "name": "adriangreen/phpunit-coverage-badge",
     "description": "Generates a code coverage badge from a phpunit coverage report and pushes to another repo for hosting",
     "license": "MIT",
     "authors": [
