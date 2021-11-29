@@ -19,6 +19,7 @@ class Config
     private string $commitMessage;
     private string $commitEmail;
     private string $commitName;
+    private string $commitUser;
     private string $githubWorkspace;
 
     public function __construct()
@@ -39,6 +40,8 @@ class Config
         $this->commitEmail = getenv('INPUT_COMMIT_EMAIL', true) ?? '';
 
         $this->commitName = getenv('INPUT_COMMIT_NAME', true) ?? '';
+
+        $this->commitUser = getenv('INPUT_COMMIT_USER', true) ?? getenv('GITHUB_ACTOR', true);
 
     }
 
@@ -81,4 +84,21 @@ class Config
     {
         return $this->githubWorkspace;
     }
+
+    /**
+     * @return array|false|string
+     */
+    public function getCommitUser(): bool|array|string
+    {
+        return $this->commitUser;
+    }
+
+    /**
+     * @param array|false|string $commitUser
+     */
+    public function setCommitUser(bool|array|string $commitUser): void
+    {
+        $this->commitUser = $commitUser;
+    }
+
 }

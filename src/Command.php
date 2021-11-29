@@ -33,7 +33,9 @@ class Command
             $config->getCommitName(),
             $config->getCommitMessage(),
             $config->getRepoToken(),
-            $config->getGithubWorkspace()
+            $config->getGithubWorkspace(),
+            $config->getGithubDestRepo(),
+            $config->getCommitUser()
         );
     }
 }
