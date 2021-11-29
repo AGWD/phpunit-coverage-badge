@@ -95,8 +95,8 @@ class GitService
         );
     }
 
-    private function cleanup($dir): void
+    private function cleanup(string $dir, string $githubWorkspace): void
     {
-        exec('rm -rf ' . $dir);
+        exec('cd ' . $githubWorkspace . ' && chmod -R a+w .git && rm -rf ' . $dir);
     }
 }
