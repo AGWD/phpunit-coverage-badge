@@ -5,20 +5,30 @@ namespace PhpUnitCoverageBadge;
 
 class GitService
 {
+    private Config $config;
+    private BadgeGenerator $generator;
+    public function __construct(Config $config, BadgeGenerator $generator)
+    {
+        $this->config = $config;
+        $this->generator = $generator;
+    }
+
     public function pushBadge(
         string $email,
         string $name,
         string $message,
         string $repoToken,
         string $githubWorkspace,
-        string $destRepo = '${GITHUB_REPOSITORY}',
-        string $user = '${GITHUB_ACTOR}'
+        string $destRepo,
+        string $user,
+        float $codeCoverage
     ): void {
         /* workspace now includes cloned repo path */
         $githubWorkspace = $this->clone($githubWorkspace, $destRepo);
 
-        $this->addFile('${INPUT_COVERAGE_BADGE_PATH}', $githubWorkspace);
-        $this->addFile('${INPUT_REPORT}', $githubWorkspace);
+        $this->generator->generateBadge($codeCoverage, $githubWorkspace . '/' . $this->config->getBadgePath());
+
+        $this->addFile($this->config->getBadgePath(), $githubWorkspace);
 
         $this->setUserEmail($email, $githubWorkspace);
         $this->setUserName($name, $githubWorkspace);
@@ -29,7 +39,7 @@ class GitService
             $user,
             $repoToken,
             $destRepo,
-            '${GITHUB_REF#refs/heads/}',
+            '${GITHUB_REF#refs/heads/}',  //todo:
             $githubWorkspace
         );
 
@@ -53,7 +63,7 @@ class GitService
         return rtrim($githubWorkspace, '/') . '/' . $destRepo;
     }
 
-    private function addFile(string $fileName, string $githubWorkspace): void
+    private function addFile(string $fileName, string $githubWorkspace, string $renameTo = ''): void
     {
         exec('cd ' . $githubWorkspace . ' && git add "' . $fileName . '"');
     }
@@ -81,8 +91,7 @@ class GitService
     private function push(string $user, string $token, string $repo, string $headRef, string $githubWorkspace): void
     {
         exec(
-            'cd ' . $githubWorkspace . ' && git push https://"' . $user . '":"' . $token . '"@github.com/"' . $repo
-            . '".git HEAD:"' . $headRef . '";'
+            'cd ' . $githubWorkspace . ' && git push https://"' . $user . '":"' . $token . '"@github.com/"' . $repo . '".git'
         );
     }
 

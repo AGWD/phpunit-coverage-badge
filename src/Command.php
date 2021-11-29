@@ -26,16 +26,15 @@ class Command
 
         $codeCoverage = $this->reportParser->getCodeCoverage($config->getReportFilePath());
 
-        $this->badgeGenerator->generateBadge($codeCoverage, $config->getBadgePath());
-
-        (new GitService())->pushBadge(
+        (new GitService($config, $this->badgeGenerator))->pushBadge(
             $config->getCommitEmail(),
             $config->getCommitName(),
             $config->getCommitMessage(),
             $config->getRepoToken(),
             $config->getGithubWorkspace(),
             $config->getGithubDestRepo(),
-            $config->getCommitUser()
+            $config->getCommitUser(),
+            $codeCoverage
         );
     }
 }

@@ -29,7 +29,7 @@ class Config
 
         $this->reportFilePath = realpath($githubWorkspace . '/' . (getenv('INPUT_REPORT', true) ?? 'clover.xml'));
 
-        $this->badgePath = $githubWorkspace . '/' . (getenv('INPUT_COVERAGE_BADGE_PATH', true) ?? '');
+        $this->badgePath = getenv('INPUT_COVERAGE_BADGE_PATH', true) ?? 'coverage.svg';
 
         $this->repoToken = getenv('INPUT_REPO_TOKEN', true) ?? '';
 
